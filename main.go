@@ -5,7 +5,7 @@ import ("goframe/router"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"goframe/common"
 	"fmt"
-	"github.com/garyburd/redigo/redis"
+	 "github.com/go-redis/redis"
 	"goframe/cache"
 )
 func init() {
@@ -23,23 +23,25 @@ func init() {
 	//redis插件注册
 	cache.Regist()
 	//redis init
-	common.Rds, err = redis.Dial("tcp", "127.0.0.1:6379")
-	if err != nil {
-		fmt.Println("Connect to redis error", err)
-		return
-	}
+	common.Rds = redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+	pong, err := common.Rds.Ping().Result()
+	fmt.Println(pong, err)
 
 }
 func main(){
 	//redis测试代码
-	_, err := common.Rds.Do("SET", "mykey", "superWang")
+	err := common.Rds.Set("mykey", "superWang",0).Err()
 	if err != nil {
-		fmt.Println("redis set failed:", err)
+		panic(err)
 	}
 
-	username, err := redis.String(common.Rds.Do("GET", "mykey"))
+	username, err := common.Rds.Get("mykey").Result()
 	if err != nil {
-		fmt.Println("redis get failed:", err)
+		panic(err)
 	} else {
 		fmt.Printf("Get mykey: %v \n", username)
 	}

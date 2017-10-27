@@ -4,10 +4,15 @@ import (
 	"time"
 	"goframe/common"
 	//"goframe/cache"
+	"fmt"
 )
 
+type SubObject struct {
+	Id string
+}
+
 type User struct {
-	Id           string
+	SubObject
 	Name         string
 	Username     string
 	Password     string
@@ -25,6 +30,10 @@ type User struct {
 	//ValidFlag    string
 }
 
+func (s *SubObject) AfterFind() (err error) {
+	fmt.Println("AfterFind")
+	return
+}
 func Frist() User{
 	var user User
 	//var u interface{}
