@@ -4,7 +4,7 @@ import (
 	"time"
 	"goframe/common"
 	//"goframe/cache"
-	"fmt"
+	//"fmt"
 )
 
 type SubObject struct {
@@ -30,15 +30,12 @@ type User struct {
 	//ValidFlag    string
 }
 
-func (s *SubObject) AfterFind() (err error) {
-	fmt.Println("AfterFind")
-	return
-}
+//func (s *SubObject) AfterFind() (err error) {
+//	fmt.Println("AfterFind")
+//	return
+//}
 func Frist() User{
 	var user User
-	//var u interface{}
-	//var umap = make(map[string]interface{})
-	//cache.RedisFirst(&user, 1)
 	common.Db.First(&user, 1)
 	return user
 }

@@ -1,7 +1,7 @@
 package common
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/guoanfamily/r-gorm"
 	"github.com/go-redis/redis"
 )
 
