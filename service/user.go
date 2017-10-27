@@ -8,6 +8,7 @@ import (
 )
 
 type SubObject struct {
+	isCache bool
 	Id string
 }
 
@@ -36,6 +37,7 @@ type User struct {
 //}
 func Frist() User{
 	var user User
+	user.isCache = false
 	common.Db.First(&user, 1)
 	return user
 }
