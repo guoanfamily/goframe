@@ -37,7 +37,7 @@ type User struct {
 //}
 func Frist() User{
 	var user User
-	user.isCache = false
+	user.isCache = true
 	common.Db.First(&user, 1)
 	return user
 }

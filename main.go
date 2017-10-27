@@ -24,6 +24,7 @@ func init() {
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
+
 	pong, err := common.Rds.Ping().Result()
 	fmt.Println(pong, err)
 
