@@ -12,7 +12,7 @@ type SubObject struct {
 	Id string
 }
 
-type User struct {
+type Usertable struct {
 	SubObject
 	Name         string
 	Username     string
@@ -35,10 +35,29 @@ type User struct {
 //	fmt.Println("AfterFind")
 //	return
 //}
-func Frist() User{
-	var user User
-	user.isCache = true
-	common.Db.First(&user, 1)
+type UserRole struct{
+	Username string
+	Rolename string
+
+}
+func Frist() Usertable{
+	var user Usertable
+	//user.isCache = true
+	common.Db.Where("true=true").First(&user,2)
 	return user
+}
+
+func Find() []Usertable{
+	var users []Usertable
+	//user.isCache = true
+	common.Db.Where("true=true").Find(&users)
+	return users
+}
+
+func MQuery() []UserRole{
+	var userrole []UserRole
+	sql := "select u.`name` username, r.`name` rolename from usertable u join user_role ur on u.id=ur.user_id join role r on ur.role_id = r.id WHERE true=true & u.sex =? "
+	common.Db.Raw(sql,2).Scan(&userrole)
+	return userrole
 }
 

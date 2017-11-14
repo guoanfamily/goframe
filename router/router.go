@@ -16,6 +16,10 @@ func Router(){
 		return c.String(http.StatusOK, "Hello, World!\n")
 	})
 	e.POST("/users",controller.GetAll)
+
+	e.POST("/ur",controller.GetAllUR)
+
+	e.POST("/al",controller.Find)
 	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
 }
